@@ -13,6 +13,7 @@ screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
 
 background = pyg.image.load("Pista.jpeg")
+car  = pyg.image.load("carro.jpeg")
 
 clock = pyg.time.Clock()
 
@@ -49,7 +50,8 @@ while out != True:
 
 
     screen.blit(background, (0,0, Display_altura, Display_largura))
-    pyg.draw.rect(screen, white, [lead_x, lead_y, 10, 10])
+    screen.blit(car,[lead_x, lead_y, 10, 10])
+    pyg.draw.rect(screen, white, [lead_x, lead_y, 10, 10])# mudar isso pro carrinho
     pyg.display.update()
     clock.tick(27)
 
