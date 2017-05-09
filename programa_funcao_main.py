@@ -15,6 +15,7 @@ while out != True:
     for event in pyg.event.get():
         if event.type == pyg.QUIT:
             out = True
+            
 
     screen.blit(background, (0,0, Display_altura, Display_largura))
     pyg.display.update()
