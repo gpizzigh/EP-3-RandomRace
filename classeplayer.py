@@ -13,13 +13,44 @@ green = (0,255,0)
 blue = (0,0,255)
 yellow = (255,255,0)
 
-Display_largura = 1152
-Display_altura = 654
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder,"arte_grafica")
 fps = 30
 
+pyg.display.set_caption("Random Race")
+Display_largura = 400
+Display_altura = 400
+screen = pyg.display.set_mode((Display_largura,Display_altura))
+#----------------------------------
+#comprimento Pista-------------
+Display_pista_larg = 900
+Display_pista_alt = 350
+#----------------------------
+#comprimeto Faixa ---------------
+Display_faixa_larg =20
+Display_faixa_alt = 50
+#-------------Variaveis-------------------
+lead_x = 300
+lead_y = 300
+lead_x_change = 0
+lead_y_change = 0
+global direction
+direction = "right"
+d_angle = 20
+angle = 180
+d_vel = 2
+vel = 3
+out = False
+#----------------------------------------------
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
-background = pyg.image.load("Pista.jpeg")
+
+background = pyg.image.load(os.path.join(img_folder,"grama.png")).convert()
+pista = pyg.image.load(os.path.join(img_folder,"pista2.0.png")).convert()
+pista = pyg.image.set_colorkey(black)
+faixa = pyg.image.load(os.path.join(img_folder,"linha_de_chegada.png")).convert()
+carro  = pyg.image.load("carro.jpeg").convert()
+
 clock = pyg.time.Clock()
 
 class Player(pyg.sprite.Sprite):
@@ -78,11 +109,11 @@ class Oponente(pyg.sprite.Sprite):
             #if keystate[pyg.K_RIGHT]:
 
 
-            if keystate[pyg.K_S]:
+            if keystate[pyg.K_s]:
                 self.speedy = 5
-            if keystate[pyg.K_W]:
+            if keystate[pyg.K_w]:
                 self.speedy = -5
-            if keystate[pyg.K_A]:
+            if keystate[pyg.K_a]:
                 self
 
             self.rect.y += self.speedy
@@ -114,14 +145,10 @@ while running:
             running = False
     #update
     all_sprites.update()
-    # check to see if a mob hit player
-    #hits = pygame.sprite.spritecollide(player,oponente,False):
-    #if hits
-
-
-    #screen.fill(blue)
-        #Draw / render]
-    screen.blit(background, (0,0,Display_altura,Display_largura))
+    screen.blit(background, (0,0, Display_altura, Display_largura))
+    screen.blit(pista, (0,0, Display_pista_alt,Display_pista_larg))
+    screen.blit(faixa,(0,0,Display_faixa_alt,Display_faixa_larg))
+    screen.blit(pyg.transform.rotate(carro,angle),[lead_x, lead_y, 10, 10])
     all_sprites.draw(screen)
 
 

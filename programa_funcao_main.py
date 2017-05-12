@@ -1,19 +1,35 @@
 import math
 import pygame as pyg
-import classeplayer.py
+import os
 #--------------------------------------------------Funçoes------------------------------------------------------------------------------------------
 #--------------------------------------------------Programa Principal-------------------------------------------------------------------------------
 pyg.init()
 
 white = (255,255,255)
-Display_largura = 1152
-Display_altura = 654
 
+
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder,"arte_grafica")
+
+
+#comprimeto Fundo--------------------
+Display_largura = 400
+Display_altura = 400
+#----------------------------------
+#comprimento Pista-------------
+Display_pista_larg = 200
+Display_pista_alt = 200
+#----------------------------
+#comprimeto Faixa ---------------
+Display_faixa_larg =7
+Display_faixa_alt = 9
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
 
-background = pyg.image.load("Pista.jpeg")
-carro  = pyg.image.load("carro.jpeg")
+background = pyg.image.load(os.path.join(img_folder,"grama.png")).convert()
+pista = pyg.image.load(os.path.join(img_folder,"pista2.0.png")).convert_alpha()
+faixa = pyg.image.load(os.path.join(img_folder,"linha_de_chegada.png")).convert()
+carro  = pyg.image.load(os.path.join(img_folder,"carrofinal2.png")).convert_alpha()
 
 clock = pyg.time.Clock()
 
@@ -27,21 +43,16 @@ d_angle = 20
 angle = 180
 d_vel = 2
 vel = 3
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/master
 out = False
 #global direction
 if direction == "right":
-    head = pyg.transform.rotate(car,180)
+    head = pyg.transform.rotate(carro,180)
 if direction == "left":
-    head = pyg.transform.rotate(car,180)
+    head = pyg.transform.rotate(carro,180)
 if direction == "up":
-    head = pyg.transform.rotate(car,180)
+    head = pyg.transform.rotate(carro,180)
 if direction == "down":
-    head = pyg.transform.rotate(car,180)
+    head = pyg.transform.rotate(carro,180)
 
 #-----------------------------Game LOOP------------------------------------------------------------
 while out != True:
@@ -49,9 +60,6 @@ while out != True:
         #global direction
         if event.type == pyg.QUIT:
             out = True
-<<<<<<< HEAD
-            
-=======
         if event.type == pyg.KEYDOWN:
 
                 if event.key == pyg.K_LEFT:
@@ -68,22 +76,18 @@ while out != True:
                 elif event.key == pyg.K_DOWN:
                     direction = "down"
                     vel -= d_vel
->>>>>>> 0da5df51e9ee1b5629a6ffac5e3e73fa8e42d7b5
 
 
     lead_x += vel * math.cos(math.pi * angle / 180.0)
     lead_y -= vel * math.sin(math.pi * angle / 180.0)
     if lead_x >= Display_largura or lead_x < 0 or lead_y >= Display_altura or lead_y < 0:
         pass
-    if lead_x >= 1152 or lead_x < 0 or lead_y >= 654 or lead_y < 0:
+    if lead_x >= 401 or lead_x < 1 or lead_y >= 401 or lead_y < 1:
         out = True
     screen.blit(background, (0,0, Display_altura, Display_largura))
-<<<<<<< HEAD
-    screen.blit(pyg.transform.rotate(car,angle),[lead_x, lead_y, 10, 10])
-=======
-    screen.blit(carro,[lead_x,lead_y,10,10])
-
->>>>>>> origin/master
+    screen.blit(pista, (0,0, Display_pista_alt,Display_pista_larg))
+    screen.blit(faixa,(0,0,Display_faixa_alt,Display_faixa_larg))
+    screen.blit(pyg.transform.rotate(carro,angle),[lead_x, lead_y, 10, 10])
     pyg.display.update()
     clock.tick(27)
 
