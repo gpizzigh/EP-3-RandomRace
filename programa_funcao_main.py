@@ -1,5 +1,6 @@
 import math
 import pygame as pyg
+import classeplayer.py
 #--------------------------------------------------Funçoes------------------------------------------------------------------------------------------
 
 #--------------------------------------------------Programa Principal-------------------------------------------------------------------------------
@@ -13,7 +14,7 @@ screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
 
 background = pyg.image.load("Pista.jpeg")
-car  = pyg.image.load("carro.jpeg")
+carro  = pyg.image.load("carro.jpeg")
 
 clock = pyg.time.Clock()
 
@@ -26,6 +27,7 @@ d_angle = 20
 angle = 180
 d_vel = 2
 vel = 3
+
 
 out = False
 while out != True:
@@ -54,7 +56,8 @@ while out != True:
     if lead_x >= 1152 or lead_x < 0 or lead_y >= 654 or lead_y < 0:
         out = True
     screen.blit(background, (0,0, Display_altura, Display_largura))
-    screen.blit(car,[lead_x, lead_y, 10, 10])
+    screen.blit(carro,[lead_x,lead_y,10,10])
+
     pyg.display.update()
     clock.tick(27)
 
