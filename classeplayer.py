@@ -14,46 +14,36 @@ green = (0,255,0)
 blue = (0,0,255)
 yellow = (255,255,0)
 
-<<<<<<< HEAD
-angle = math.pi
-variacao_angle =(math.pi/180)*10
+'''d_angle = 20
+angle = 0'''
 
 Display_largura = 1152
 Display_altura = 654
-=======
-Display_largura = 400
-Display_altura = 400
->>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
 fps = 30
 
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
-background = pyg.image.load("pista2.png")
+background = pyg.image.load("Pista.jpeg")
 clock = pyg.time.Clock()
 
 class Player(pyg.sprite.Sprite):
         def __init__(self):
-            pyg.sprite.Sprite.__init__(self)
-            self.image = pyg.image.load("carro.jpeg").convert()
+            pyg.sprite.Sprite.__init__(self)  #  Parte que e necessaria para utilizar as funcoes do sprite
+            self.image = pyg.image.load("carro.jpeg").convert()  # da load na imgem
             self.image.set_colorkey(black) # deixa transparente as partes a mais do retancgulo
 
-            self.rect = self.image.get_rect()
+            self.rect = self.image.get_rect()  #  Cria um retangulo em volta da imgem
             # onde muda a localizacao do carrinho
-            self.rect.centerx = 300
-            self.rect.bottom = 300  # parte inferior
-            self.speedx = 0    # velocidade
+            self.rect.centerx = 520  # localizacao do carrinho eixo x
+            self.rect.bottom = 580  # Localizacao da  parte inferior da imgem
+            self.speedx = 0
             self.speedy = 0
-            self.angle = 180
-
-
-
-
+            #self.angle = -90   # teste
 
 
         def update(self):
             self.speedx = 0
             self.speedy = 0
-            self.angle  = 180
 
             keystate = pyg.key.get_pressed()
             #if keystate[pyg.K_LEFT]:
@@ -61,37 +51,32 @@ class Player(pyg.sprite.Sprite):
 
             if keystate[pyg.K_DOWN]:
                 self.speedy = 5
-                self.rect.y += self.speedy
-                self.rect.x += self.speedx
 
             if keystate[pyg.K_UP]:
                 self.speedy = -5
-                self.rect.y += self.speedy
-                self.rect.x += self.speedx
 
             if keystate[pyg.K_LEFT]:
-                self.speedx = -10
-                self.angle -= 45
-                self.rect.y += self.speedy*math.sin(math.pi*self.angle/180)
-                self.rect.x += self.speedx*math.cos(math.pi*self.angle/180)
+                self.speedx = 5
+                #self.angle += 20
             if keystate[pyg.K_RIGHT]:
-                self.speedx= 10
-                self.angle += 45
-                self.rect.y += self.speedy*math.sin(math.pi*self.angle/180)
-                self.rect.x += self.speedx*math.cos(math.pi*self.angle/180)
+                self.speedx = -5
+                #self.angle -= 20
+
+            self.rect.y += self.speedy
+            self.rect.x += self.speedx
+
+            '''self.rect.y -= self.speedy*math.sin(math.pi*self.angle/180)
+            self.rect.x += self.speedy*math.cos(math.pi*self.angle/180)
+            self.rect.center(pyg.transform.rotate(self.image,self.angle+90),[self.rect.x,self.rect.y, 10, 10])'''
 
 
-
-
-
-
-            if self.rect.right > Display_largura:
+            if self.rect.right > Display_largura or self.rect.left > Display_largura or self.rect.bottom > Display_largura or self.rect.top > Display_largura :
                 self.rect.right = Display_largura
-            if self.rect.left < 0:
+            if self.rect.left < 0 or self.rect.right <0 or self.rect.bottom <0 or self.rect.top <0:
                 self.rect.left = 0
 
-            if self.rect.bottom > Display_altura:  # ERRRO
-                self.rect.bottom = 0
+            if self.rect.bottom > Display_altura or self.rect.right > Display_altura or self.rect.left > Display_altura  or self.rect.top > Display_altura:  # ERRRO
+                self.rect.bottom = Display_altura
 
 
 
@@ -122,11 +107,8 @@ class Oponente(pyg.sprite.Sprite):
             if keystate[pyg.K_w]:
                 self.speedy = -5
             if keystate[pyg.K_a]:
-<<<<<<< HEAD
                 self
             if keystate[pyg.K_d]:
-=======
->>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
                 self
 
             self.rect.y += self.speedy
@@ -139,12 +121,12 @@ class Oponente(pyg.sprite.Sprite):
                 self.rect.right = 0
 
 
-all_sprites = pyg.sprite.Group()
-player = Player()
+all_sprites = pyg.sprite.Group()  # Cria um grupo para sprite
+player = Player()  # Player
 oponente = Oponente()
-oponente_grupo = pyg.sprite.Group()
-oponente_grupo.add(oponente)
-all_sprites.add(player)
+oponente_grupo = pyg.sprite.Group()   # Cria um grupo chamado oponente_grupo
+oponente_grupo.add(oponente)   # Adiciona o opnente ao grupo oponente_grupo
+all_sprites.add(player)   #
 all_sprites.add(oponente)
 
 running = True
@@ -159,7 +141,12 @@ while running:
     #update
     all_sprites.update()
     # check to see if a mob hit player
-    '''def collide (player, oponente):
+    '''bateu
+    bateu_player = pyg.sprite.spritecollide(player,oponente,False)
+    bateu_oponente = pyg.sprite.spritecollide(oponente,player,False)
+    if bateu_player:
+        player1.rect.centery = bateu
+
         if hits = pyg.sprite.spritecollide(player,pista,False)
             if hits:
                 player.speedy = player.speedy * 1/4
