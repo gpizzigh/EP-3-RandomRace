@@ -14,16 +14,21 @@ green = (0,255,0)
 blue = (0,0,255)
 yellow = (255,255,0)
 
+<<<<<<< HEAD
 angle = math.pi
 variacao_angle =(math.pi/180)*10
 
 Display_largura = 1152
 Display_altura = 654
+=======
+Display_largura = 400
+Display_altura = 400
+>>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
 fps = 30
 
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
-background = pyg.image.load("Pista.jpeg")
+background = pyg.image.load("pista2.png")
 clock = pyg.time.Clock()
 
 class Player(pyg.sprite.Sprite):
@@ -117,8 +122,11 @@ class Oponente(pyg.sprite.Sprite):
             if keystate[pyg.K_w]:
                 self.speedy = -5
             if keystate[pyg.K_a]:
+<<<<<<< HEAD
                 self
             if keystate[pyg.K_d]:
+=======
+>>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
                 self
 
             self.rect.y += self.speedy
