@@ -13,8 +13,8 @@ green = (0,255,0)
 blue = (0,0,255)
 yellow = (255,255,0)
 
-Display_largura = 1152
-Display_altura = 654
+Display_largura = 400
+Display_altura = 400
 fps = 30
 
 screen = pyg.display.set_mode((Display_largura,Display_altura))
