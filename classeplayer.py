@@ -19,7 +19,7 @@ fps = 30
 
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
-background = pyg.image.load("Pista.jpeg")
+background = pyg.image.load("pista2.png")
 clock = pyg.time.Clock()
 
 class Player(pyg.sprite.Sprite):
@@ -78,11 +78,11 @@ class Oponente(pyg.sprite.Sprite):
             #if keystate[pyg.K_RIGHT]:
 
 
-            if keystate[pyg.K_S]:
+            if keystate[pyg.K_s]:
                 self.speedy = 5
-            if keystate[pyg.K_W]:
+            if keystate[pyg.K_w]:
                 self.speedy = -5
-            if keystate[pyg.K_A]:
+            if keystate[pyg.K_a]:
                 self
 
             self.rect.y += self.speedy
