@@ -19,15 +19,15 @@ fps = 30
 
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
-background = pyg.image.load("Pista.jpeg")
+background = pyg.image.load("pista2.png")
 clock = pyg.time.Clock()
 
 class Player(pyg.sprite.Sprite):
         def __init__(self):
             pyg.sprite.Sprite.__init__(self)
-            self.image = pyg.image.load("carro.jpeg").convert()
+            self.image = pyg.image.load("carro.png").convert()
+            self.image = pyg.tranform.scale(pygame.image.load(gamegame.img_dir)).convert_alpha(), (TILESIZE,TILESIZE)
             self.image.set_colorkey(black) # deixa transparente as partes a mais do retancgulo
-
             self.rect = self.image.get_rect()
             self.rect.centerx = 300
             self.rect.bottom = 300
@@ -58,7 +58,7 @@ class Player(pyg.sprite.Sprite):
                 self.rect.right = 0
 
 
-class Oponente(pyg.sprite.Sprite):
+'''class Oponente(pyg.sprite.Sprite):
         def __init__(self):
             pyg.sprite.Sprite.__init__(self)
             self.image = pyg.image.load("carro.jpeg").convert()
@@ -92,15 +92,12 @@ class Oponente(pyg.sprite.Sprite):
                 self.rect.left = 0
             if self.rect.bottom > Display_altura:  # ERRRO
                 self.rect.right = 0
-
+'''
 
 all_sprites = pyg.sprite.Group()
 player = Player()
-oponente = Oponente()
-oponente_grupo = pyg.sprite.Group()
-oponente_grupo.add(oponente)
 all_sprites.add(player)
-all_sprites.add(oponente)
+
 
 
 running = True
