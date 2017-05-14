@@ -23,55 +23,59 @@ lead_x_change = 0
 lead_y_change = 0
 #global direction
 #direction = "right"
-d_angle = 20
+d_angle = 7
 angle = 0
 d_vel = 5
 vel = 0
 
 out = False
-#global direction
-#if direction == "right":
-    #head = pyg.transform.rotate(car,180)
-#if direction == "left":
-    #head = pyg.transform.rotate(car,180)
-#if direction == "up":
-    #head = pyg.transform.rotate(car,180)
-#if direction == "down":
-    #head = pyg.transform.rotate(car,180)
 
 #-----------------------------Game LOOP------------------------------------------------------------
 while out != True:
     for event in pyg.event.get():
-        #global direction
+
         if event.type == pyg.QUIT:
             out = True
+#----------------------------------Para virar tem que clicar varias vezes------------------------------------------------------------
+        #if event.type == pyg.KEYDOWN:
 
-        if event.type == pyg.KEYDOWN:
+                #if event.key == pyg.K_LEFT:
+
+                    #angle +=d_angle
+                #elif event.key == pyg.K_RIGHT:
+
+                    #angle -= d_angle
+
+                #elif event.key == pyg.K_UP:
+
+                    #vel += d_vel
+
+                #elif event.key == pyg.K_DOWN:
+
+                    #vel -= d_vel
+#--------------------------------------está virando de acordo com o tempo de pressionamento da tecla----------------------------------
+        def movimento():
+            if event.type == pyg.KEYDOWN:
+                global vel
+                global angle
 
                 if event.key == pyg.K_LEFT:
-                    #direction = "left"
+
                     angle +=d_angle
                 elif event.key == pyg.K_RIGHT:
-                   # direction = "right"
+
                     angle -= d_angle
 
                 elif event.key == pyg.K_UP:
-                   # direction = "up"
+
                     vel += d_vel
 
                 elif event.key == pyg.K_DOWN:
-                   # direction = "down"
+
                     vel -= d_vel
-        #if event.type == pyg.KEYUP:
-                #if event.key == pyg.K_LEFT:
-                    #direction = "left"
-                    #angle = angle
-                #elif event.key == pyg.K_RIGHT:
-                   # direction = "right"
-                    #angle -= angle
-
-
-
+            return ("vel","angle")
+    movimento()
+#--------------------------------------------------------------------------------------------------------------------
 
     lead_x += vel * math.cos(math.pi * angle / 180.0)
     lead_y -= vel * math.sin(math.pi * angle / 180.0)
@@ -83,7 +87,7 @@ while out != True:
 
     screen.blit(pyg.transform.rotate(car,angle+90),[lead_x, lead_y, 10, 10])
 
-    #screen.blit(car,[lead_x,lead_y,10,10])
+
 
 
     pyg.display.update()
