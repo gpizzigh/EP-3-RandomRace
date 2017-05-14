@@ -7,7 +7,7 @@ import os
 pyg.init()
 
 game_folder = os.path.dirname(__file__)
-img_folder = os.path.join(game_folder,"arte_grafica")
+img_folder = os.path.join(game_folder,"resourses\imagens")
 
 
 
@@ -15,7 +15,7 @@ screen = pyg.display.set_mode((500,500))
 
 #background = pyg.image.load(os.path.join(img_folder,"FundoDemo.png")).convert()
 pista = pyg.image.load(os.path.join(img_folder,"track final.png"))
-carro = pyg.image.load(os.path.join(img_folder,"carro vermelho Demo1.0.png"))#.convert_alpha()
+carro = pyg.image.load(os.path.join(img_folder,"carro vermelho Demo.png"))#.convert_alpha()
 pistax= 0
 pistay= -1000
 xpos = 275
