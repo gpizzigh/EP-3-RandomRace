@@ -12,37 +12,21 @@ Display_altura = 654
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
 
-<<<<<<< HEAD
-background = pyg.image.load("pista2.png")
-carro  = pyg.image.load("carro.jpeg")
-set_colorkey(white, flags=0)
-set_colorkey(None)
-=======
 background = pyg.image.load("Pista.jpeg")
 car  = pyg.image.load("carro.jpeg")
 
->>>>>>> a6d84decc7a3b49127b13555a3edd0c4a7d47964
 clock = pyg.time.Clock()
-
-lead_x = 300
-lead_y = 300
+FPS=15
+lead_x = 520
+lead_y = 580
 lead_x_change = 0
 lead_y_change = 0
-global direction
-direction = "right"
+#global direction
+#direction = "right"
 d_angle = 20
-<<<<<<< HEAD
-angle = 180
-d_vel = 2
-vel = 3
-<<<<<<< HEAD
-=======
-=======
-angle = 270
+angle = 0
 d_vel = 5
 vel = 0
->>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
->>>>>>> a6d84decc7a3b49127b13555a3edd0c4a7d47964
 
 out = False
 #global direction
@@ -78,48 +62,31 @@ while out != True:
                 elif event.key == pyg.K_DOWN:
                    # direction = "down"
                     vel -= d_vel
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        if event.type == pyg.K_UP:
-                if event.key == pyg.K_LEFT:
+        #if event.type == pyg.KEYUP:
+                #if event.key == pyg.K_LEFT:
                     #direction = "left"
-                    angle = angle
-                elif event.key == pyg.K_RIGHT:
+                    #angle = angle
+                #elif event.key == pyg.K_RIGHT:
                    # direction = "right"
-                    angle -= angle
+                    #angle -= angle
 
->>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
 
->>>>>>> a6d84decc7a3b49127b13555a3edd0c4a7d47964
 
 
     lead_x += vel * math.cos(math.pi * angle / 180.0)
     lead_y -= vel * math.sin(math.pi * angle / 180.0)
+
     if lead_x >= Display_largura or lead_x < 0 or lead_y >= Display_altura or lead_y < 0:
         out = True
     
     screen.blit(background, (0,0, Display_altura, Display_largura))
-<<<<<<< HEAD
-    screen.blit(pyg.transform.rotate(car,angle),[lead_x, lead_y, 10, 10])
-    screen.blit(carro,[lead_x,lead_y,10,10])
 
-=======
-
-    screen.blit(pyg.transform.rotate(car,angle),[lead_x, lead_y, 10, 10])
-<<<<<<< HEAD
-
-    screen.blit(carro,[lead_x,lead_y,10,10])
-
-=======
+    screen.blit(pyg.transform.rotate(car,angle+90),[lead_x, lead_y, 10, 10])
 
     #screen.blit(car,[lead_x,lead_y,10,10])
 
->>>>>>> a7576dd5ceeef43e2decddaa214196392a8306a0
 
->>>>>>> a6d84decc7a3b49127b13555a3edd0c4a7d47964
     pyg.display.update()
-    clock.tick(27)
+    clock.tick(FPS)
 
 pyg.quit()
