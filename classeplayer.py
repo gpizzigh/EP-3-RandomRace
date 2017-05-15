@@ -38,7 +38,8 @@ class Player(pyg.sprite.Sprite):
             self.rect.bottom = 580  # Localizacao da  parte inferior da imgem
             self.speedx = 0
             self.speedy = 0
-            #self.angle = -90   # teste
+            self.angle = 0
+
 
 
         def update(self):
@@ -56,29 +57,26 @@ class Player(pyg.sprite.Sprite):
                 self.speedy = -5
 
             if keystate[pyg.K_LEFT]:
-                self.speedx = 5
-                #self.angle += 20
-            if keystate[pyg.K_RIGHT]:
+                #elf.speedy = 5
                 self.speedx = -5
+                #self.image = pyg.tranform.rotate(self.image,45)
+
+            if keystate[pyg.K_RIGHT]:
+                self.speedx = 5
                 #self.angle -= 20
 
             self.rect.y += self.speedy
             self.rect.x += self.speedx
 
-            '''self.rect.y -= self.speedy*math.sin(math.pi*self.angle/180)
-            self.rect.x += self.speedy*math.cos(math.pi*self.angle/180)
-            self.rect.center(pyg.transform.rotate(self.image,self.angle+90),[self.rect.x,self.rect.y, 10, 10])'''
+            #.rect.y -= self.speedy*math.sin(math.pi*self.angle/180)
+            #self.rect.x += self.speedx*math.cos(math.pi*self.angle/180)
+            #self.rect.center(pyg.transform.rotate(self.image,self.angle+90),[self.rect.x,self.rect.y, 10, 10])'''
 
 
             if self.rect.right > Display_largura or self.rect.left > Display_largura or self.rect.bottom > Display_largura or self.rect.top > Display_largura :
                 self.rect.right = Display_largura
             if self.rect.left < 0 or self.rect.right <0 or self.rect.bottom <0 or self.rect.top <0:
                 self.rect.left = 0
-
-            if self.rect.bottom > Display_altura or self.rect.right > Display_altura or self.rect.left > Display_altura  or self.rect.top > Display_altura:  # ERRRO
-                self.rect.bottom = Display_altura
-
-
 
 
 class Oponente(pyg.sprite.Sprite):
@@ -141,11 +139,15 @@ while running:
     #update
     all_sprites.update()
     # check to see if a mob hit player
-    '''bateu
-    bateu_player = pyg.sprite.spritecollide(player,oponente,False)
+
+    '''bateu_player = pyg.sprite.spritecollide(player,oponente,False)
     bateu_oponente = pyg.sprite.spritecollide(oponente,player,False)
     if bateu_player:
-        player1.rect.centery = bateu
+        player.rect.centery = player.speedy *1/2
+        oponente.rect.centery = oponente.speedy *3/2
+    if bateu_oponente:
+        oponene.rect.centery = oponente.speedy*1/2
+        player.rect.centery = player.speedy*3/2
 
         if hits = pyg.sprite.spritecollide(player,pista,False)
             if hits:
