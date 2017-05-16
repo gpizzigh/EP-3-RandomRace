@@ -21,17 +21,23 @@ Display_largura = 1152
 Display_altura = 654
 fps = 30
 
+
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder,"arte_grafica")
+
 screen = pyg.display.set_mode((Display_largura,Display_altura))
 pyg.display.set_caption("Random Race")
-background = pyg.image.load("Pista.jpeg")
+#background = pyg.image.load(os.path.join(img_folder,"track final.png"))
 clock = pyg.time.Clock()
 
 class Player(pyg.sprite.Sprite):
         def __init__(self):
             pyg.sprite.Sprite.__init__(self)  #  Parte que e necessaria para utilizar as funcoes do sprite
-            self.image = pyg.image.load("carro.jpeg").convert()  # da load na imgem
-            self.image.set_colorkey(black) # deixa transparente as partes a mais do retancgulo
+            self.image_orig = pyg.image.load(os.path.join(img_folder,"carro vermelho Demo1.0.png")).convert_alpha()  # da load na imgem
+            #self.image_orig.set_colorkey(black) # deixa transparente as partes a mais do retancgulo
+            self.image = self.image_orig.copy()
 
+            #self.image_orig.set_colorkey(black)
             self.rect = self.image.get_rect()  #  Cria um retangulo em volta da imgem
             # onde muda a localizacao do carrinho
             self.rect.centerx = 520  # localizacao do carrinho eixo x
@@ -39,8 +45,8 @@ class Player(pyg.sprite.Sprite):
             self.speedx = 0
             self.speedy = 0
             self.angle = 0
-
-
+            self.rot = 0
+            self.rot_speed = 5
 
         def update(self):
             self.speedx = 0
@@ -57,13 +63,18 @@ class Player(pyg.sprite.Sprite):
                 self.speedy = -5
 
             if keystate[pyg.K_LEFT]:
-                #elf.speedy = 5
-                self.speedx = -5
-                #self.image = pyg.tranform.rotate(self.image,45)
+                #self.speedx = 5
+
+                self.rot = (self.rot+self.rot_speed)%360
+                new_image = pyg.transform.rotate(self.image_orig, self.rot)
+                self.image = new_image
 
             if keystate[pyg.K_RIGHT]:
-                self.speedx = 5
-                #self.angle -= 20
+                #self.speedx = -5
+                self.rot = (self.rot-self.rot_speed)%360
+                new_image = pyg.transform.rotate(self.image_orig, self.rot)
+                self.image = new_image
+
 
             self.rect.y += self.speedy
             self.rect.x += self.speedx
@@ -71,6 +82,8 @@ class Player(pyg.sprite.Sprite):
             #.rect.y -= self.speedy*math.sin(math.pi*self.angle/180)
             #self.rect.x += self.speedx*math.cos(math.pi*self.angle/180)
             #self.rect.center(pyg.transform.rotate(self.image,self.angle+90),[self.rect.x,self.rect.y, 10, 10])'''
+            #self.rect.x+=math.cos(self.speedx/57.29)*self.speedy
+            #self.rect.y+=math.sin(self.speedx/57.29)*self.speedy
 
 
             if self.rect.right > Display_largura or self.rect.left > Display_largura or self.rect.bottom > Display_largura or self.rect.top > Display_largura :
@@ -79,7 +92,9 @@ class Player(pyg.sprite.Sprite):
                 self.rect.left = 0
 
 
-class Oponente(pyg.sprite.Sprite):
+
+
+'''class Oponente(pyg.sprite.Sprite):
         def __init__(self):
 
             pyg.sprite.Sprite.__init__(self)
@@ -95,6 +110,7 @@ class Oponente(pyg.sprite.Sprite):
         def update(self):
             self.speedx = 0
             self.speedy = 0
+
             keystate = pyg.key.get_pressed()
             #if keystate[pyg.K_LEFT]:
             #if keystate[pyg.K_RIGHT]:
@@ -116,16 +132,23 @@ class Oponente(pyg.sprite.Sprite):
             if self.rect.left < 0:
                 self.rect.left = 0
             if self.rect.bottom > Display_altura:  # ERRRO
-                self.rect.right = 0
+                self.rect.right = 0'''
+class Mapa(pyg.sprite.Sprite):
+    def __init__(self):
+        pyg.sprite.Sprite.__init__(self)
+        self.image = pyg.image.load("Pista.jpeg").convert()
+        self.rect = self.image.get_rect()
 
 
 all_sprites = pyg.sprite.Group()  # Cria um grupo para sprite
 player = Player()  # Player
-oponente = Oponente()
-oponente_grupo = pyg.sprite.Group()   # Cria um grupo chamado oponente_grupo
-oponente_grupo.add(oponente)   # Adiciona o opnente ao grupo oponente_grupo
-all_sprites.add(player)   #
-all_sprites.add(oponente)
+mapa = Mapa()
+#oponente = Oponente()
+#oponente_grupo = pyg.sprite.Group()   # Cria um grupo chamado oponente_grupo
+#oponente_grupo.add(oponente)   # Adiciona o opnente ao grupo oponente_grupo
+all_sprites.add(player)   #]
+all_sprites.add(mapa)
+#all_sprites.add(oponente)
 
 running = True
 while running:
@@ -165,7 +188,7 @@ while running:
 
     #screen.fill(blue)
         #Draw / render]
-    screen.blit(background, (0,0,Display_altura,Display_largura))
+    #screen.blit(background, (0,0,Display_altura,Display_largura))
 
     all_sprites.draw(screen)
 
