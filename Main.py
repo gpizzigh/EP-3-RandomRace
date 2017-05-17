@@ -20,6 +20,7 @@ screen = pyg.display.set_mode((500,500))
 
 #background = pyg.image.load(os.path.join(img_folder,"FundoDemo.png")).convert()
 pista = pyg.image.load(os.path.join(img_folder,"track final.png"))
+faixa = pyg.image.load(os.path.join(img_folder,"faixa.png"))
 carro = pyg.image.load(os.path.join(img_folder,"carro vermelho Demo.png"))#.convert_alpha()
 #carro_mask = pyg.mask.from_surface((os.path.join(img_folder,"carro vermelho mask.png")))
 #carro_mask = carro_mask(15,24)
@@ -36,6 +37,18 @@ keys=[False,False,False,False]
 direction = 0
 forward = 0
 WHITE = (255, 255, 255, 255)
+YEllOW = (246,255,0,255)
+LAPS=0
+smallfont = pyg.font.SysFont("comicsansms",25)
+def score(score):
+	
+	text = smallfont.render("Laps: "+str(score),True, YEllOW)
+	#if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
+		#score += 1
+
+	screen.blit(text, [0,0])
+    		
+
 #lista de sprites:
 #all_sprites_carros = pyg.sprite.Group()#sprites de carros
 #all_sprites_extra = pyg.sprite.Group()#sprites da pista e BG
@@ -51,10 +64,12 @@ while running:
     screen.fill(0)
     # Verifica se o carro bateu na pista.
     print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+    print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
     if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
         pyg.quit()
         exit(0)
-
+    if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
+    	LAPS += 1
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
@@ -73,10 +88,15 @@ while running:
     pistax+=movex
     pistay-=movey
 
+
     carro_rot = pyg.transform.rotate(carro,direction)
     #screen.blit(background,(0,0))
+    
     screen.blit(pista, (pistax,pistay))
+    screen.blit(faixa,(pistax,pistay))
     screen.blit(carro_rot, (xpos,ypos))
+
+    score(LAPS)
     #screen.blit(carro_mask, (xpos,ypos))
     pyg.display.flip()
     time.sleep(0.02)
