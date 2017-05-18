@@ -75,6 +75,7 @@ while running:
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
         if TEMPO == 0 and LAPS == 0:
            LAPS = 1
+
            TEMPO = timer - timer
 
         elif TEMPO ==0 and LAPS ==1 and timer > 15:
@@ -82,7 +83,7 @@ while running:
            TEMPO = timer
            x = TEMPO
         elif TEMPO > 0 and LAPS >1 and timer > 40 :
-           LAPS += 1
+           LAPS = 2
            TEMPO = timer - TEMPO
         #elif TEMPO > 40:
             #TEMPO = x
