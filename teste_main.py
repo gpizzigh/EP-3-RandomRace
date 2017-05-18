@@ -15,7 +15,7 @@ game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder,"resourses\imagens")
 
 screen = pyg.display.set_mode((500,500))
-
+FPS = 40
 #background = pyg.image.load(os.path.join(img_folder,"FundoDemo.png")).convert()
 pista = pyg.image.load(os.path.join(img_folder,"track final.png"))
 faixa = pyg.image.load(os.path.join(img_folder,"faixa.png"))
@@ -37,6 +37,7 @@ forward = 0
 WHITE = (255, 255, 255, 255)
 YEllOW = (246,255,0,255)
 LAPS=0
+TEMPO = 0
 smallfont = pyg.font.SysFont("comicsansms",25)
 def score(score):
 
@@ -44,20 +45,25 @@ def score(score):
 	#if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
 		#score += 1
 
+
 	screen.blit(text, [0,0])
+def tempo(Tempo):
+    #text1 = smallfont.render("Tempo total: "+str(timer),True,YELLOW)
+    text2 = smallfont.render("Tempo da volta: "+str(Tempo),True, YEllOW)
+    #screen.blit(text1,[,])
+    screen.blit(text2,[250,0])
 
+clock = pyg.time.Clock()
 
-#lista de sprites:
-#all_sprites_carros = pyg.sprite.Group()#sprites de carros
-#all_sprites_extra = pyg.sprite.Group()#sprites da pista e BG
-#adiciona ao grupo de sprites:
-#all_sprites_carros.add(carro_mask)
-#all_sprites_extra.add(pista_mask)
-#all_sprites_extra.add(bg_mask)
+dt = 0
+TEMPO = 0
 
-
+Y = 0
 running = True
 while running:
+    clock.tick(FPS)
+    timer = pyg.time.get_ticks()/1000
+
     pyg.display.set_caption('Random Race')
     screen.fill(0)
     # Verifica se o carro bateu na pista.
@@ -67,7 +73,22 @@ while running:
         pyg.quit()
         exit(0)
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
-    	LAPS += 1
+        if TEMPO == 0 and LAPS == 0:
+           LAPS = 1
+           TEMPO = timer - timer
+
+        elif TEMPO ==0 and LAPS ==1 and timer > 15:
+           LAPS += 1
+           TEMPO = timer
+           x = TEMPO
+        elif TEMPO > 0 and LAPS >1 and timer > 40 :
+           LAPS += 1
+           TEMPO = timer - TEMPO
+        #elif TEMPO > 40:
+            #TEMPO = x
+
+    print(timer)
+
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
@@ -95,6 +116,7 @@ while running:
     screen.blit(carro_rot, (xpos,ypos))
 
     score(LAPS)
+    tempo(TEMPO)
     #screen.blit(carro_mask, (xpos,ypos))
     pyg.display.flip()
     time.sleep(0.02)
