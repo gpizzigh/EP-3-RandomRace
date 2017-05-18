@@ -56,6 +56,7 @@ def score(score):
 #all_sprites_extra.add(bg_mask)
 
 
+
 running = True
 while running:
     pyg.display.set_caption('Random Race')
@@ -68,6 +69,7 @@ while running:
         exit(0)
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
     	LAPS += 1
+
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")

@@ -36,6 +36,7 @@ direction = 0
 forward = 0
 WHITE = (255, 255, 255, 255)
 YEllOW = (246,255,0,255)
+BLACK = (0,0,0,0)
 LAPS=0
 TEMPO = 0
 smallfont = pyg.font.SysFont("comicsansms",25)
@@ -49,7 +50,7 @@ def score(score):
 	screen.blit(text, [0,0])
 def tempo(Tempo):
     #text1 = smallfont.render("Tempo total: "+str(timer),True,YELLOW)
-    text2 = smallfont.render("Tempo da volta: "+str(Tempo),True, YEllOW)
+    text2 = smallfont.render("Tempo da volta: "+str(Tempo),True, BLACK)
     #screen.blit(text1,[,])
     screen.blit(text2,[250,0])
 
@@ -57,13 +58,15 @@ clock = pyg.time.Clock()
 
 dt = 0
 TEMPO = 0
-
-Y = 0
+timer2 =0
+y = 0
 running = True
 while running:
     clock.tick(FPS)
     timer = pyg.time.get_ticks()/1000
 
+    #timer = pyg.time.set
+    #Y = timer
     pyg.display.set_caption('Random Race')
     screen.fill(0)
     # Verifica se o carro bateu na pista.
@@ -73,22 +76,19 @@ while running:
         pyg.quit()
         exit(0)
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
-        if TEMPO == 0 and LAPS == 0:
-           LAPS = 1
-           TEMPO = timer - timer
+        timer2 = pyg.time.get_ticks()/40000
+        timer = pyg.time.get_ticks()/1000
+        if timer2 < 0.15:
+            LAPS +=1
+            TEMPO = timer - TEMPO
 
-        elif TEMPO ==0 and LAPS ==1 and timer > 15:
-           LAPS += 1
-           TEMPO = timer
-           x = TEMPO
-        elif TEMPO > 0 and LAPS >1 and timer > 40 :
-           LAPS += 1
-           TEMPO = timer - TEMPO
+
+
         #elif TEMPO > 40:
             #TEMPO = x
 
     print(timer)
-
+    print(timer2)
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
