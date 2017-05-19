@@ -73,143 +73,121 @@ y = 0
 
 running = True
 while running:
-    pyg.display.set_caption('Random Race')
-    screen.fill(0)
-    clock.tick(FPS)
-    timer = pyg.time.get_ticks()/1000
+	pyg.display.set_caption('Random Race')
+	screen.fill(0)
+	clock.tick(FPS)
+	timer = pyg.time.get_ticks()/1000
 
-    # Verifica se o carro bateu na pista.
+ 	#Verifica se o carro bateu na pista.
 
-#    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
-    #print(pistax,pistay)
-    if pistax >= 270:
-        pistax = pistax -5
-        forward = 0.01
-    if pistax <= -1200:
-        pistax = pistax + 5
-        forward = 0.01
-    if pistay >= 350:
-        pistay= pistay - 5
-        forward = 0.01
-    if pistay <= -1125:
-        pistay = pistay + 5
-        forward = 0.01
+	#print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+	#print(pistax,pistay)
+	if pistax >= 270:
+    	pistax = pistax -5
+    	forward = 0.01
+	if pistax <= -1200:
+    	pistax = pistax + 5
+    	forward = 0.01
+	if pistay >= 350:
+    	pistay= pistay - 5
+    	forward = 0.01
+	if pistay <= -1125:
+    	pistay = pistay + 5
+    	forward = 0.01
 
-    if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-#        if forward >2:
-#            forward = 2
+	if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
+        forward -= 0.1
         if keys[2]==True:
             forward = 0
             forward = -2
-        if keys[3]==True:
+		if keys[3]==True:
             forward = 0
             forward = 2
 
 
-#    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
-#    print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
-#    if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-#        pyg.quit()
-#        exit(0)
-    if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
+#print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+#print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
+	if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
 
-        #timer2 = pyg.time.get_ticks()/40000
-        #if timer2 < 0.5:
-            #LAPS +=1
-            #TEMPO = timer - TEMPO
-        if LAPS == 0 and TEMPO == 0:
+		if LAPS == 0 and TEMPO == 0:
             LAPS = 1
             TEMPO = timer - timer
             x = TEMPO
             y = timer
 
-        elif LAPS ==1 and TEMPO>=0 and timer-y>15:
+		elif LAPS ==1 and TEMPO>=0 and timer-y>15:
             LAPS =2
             TEMPO = timer
             y = timer
             x= TEMPO
 
-        elif LAPS >1 and TEMPO >=0 and timer-y >15:
+		elif LAPS >1 and TEMPO >=0 and timer-y >15:
             LAPS += 1
             TEMPO = timer - x
             x = TEMPO
             y = timer
 
+	if keys[2]==True:
+		forward-= 0.08
+	if keys[3]==True and forward <= 0:
+		forward+= 0.08
+	if keys[0]==True:
+		direction+= 2
+	if keys[1]==True:
+		direction-= 2
+	movex=math.cos(direction/57.29)*forward
+	movey=math.sin(direction/57.29)*forward
+	pistax+=movex
+	pistay-=movey
 
 
-
-    print(timer)
-
-
-#     running = False
-    #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == NO_COLOR:
-    if keys[2]==True:
-        forward-= 0.08
-    if keys[3]==True and forward <= 0:
-        forward+= 0.08
-    if keys[0]==True:
-        direction+= 2
-    if keys[1]==True:
-        direction-= 2
-    movex=math.cos(direction/57.29)*forward
-    movey=math.sin(direction/57.29)*forward
-    pistax+=movex
-    pistay-=movey
-
-
-    carro_rot = pyg.transform.rotate(carro,direction)
+	carro_rot = pyg.transform.rotate(carro,direction)
     #screen.blit(background,(0,0))
 
-    screen.blit(pista, (pistax,pistay))
+	screen.blit(pista, (pistax,pistay))
 
 #    screen.blit(pista_mask, (pistax,pistay))
 
-    screen.blit(faixa,(pistax,pistay))
-    screen.blit(carro_rot, (xpos,ypos))
+	screen.blit(faixa,(pistax,pistay))
+	screen.blit(carro_rot, (xpos,ypos))
 
-    score(LAPS)
-    tempo(TEMPO)
-    print(timer)
-    print(timer2)
+	score(LAPS)
+	tempo(TEMPO)
+	#print(timer)
+	#print(timer2)
     #screen.blit(carro_mask, (xpos,ypos))
-    pyg.display.flip()
-    time.sleep(0.02)
-    '''if pistax >= 280 or pistax <= -1200 and pistay >= 360 or pistay <= -1130:
-        forward
-        xpos -= 5
-        ypos -= 5
-        pistay += movey
-        pistax -= movex
-'''
-    for event in pyg.event.get():
+	pyg.display.flip()
+	time.sleep(0.02)
+	for event in pyg.event.get():
         #da update no grupo de sprites:
         # all_sprites_list.update()
     # checa se sai do jogo
-        if event.type==pyg.QUIT:
+		if event.type==pyg.QUIT:
             # SAida do jogo
-            pyg.quit()
-            exit(0)
+			pyg.quit()
+			exit(0)
 
-        if event.type == pyg.KEYDOWN:
-            if event.key==K_LEFT:
-                keys[0]=True
-            elif event.key==K_RIGHT:
-                keys[1]=True
-            elif event.key==K_UP:
-                keys[2]=True
-            elif event.key==K_DOWN:
-                keys[3]=True
-            elif event.key == pyg.K_ESCAPE:
-                pyg.quit()
-                exit(0)
+		if event.type == pyg.KEYDOWN:
+			if event.key==K_LEFT:
+				keys[0]=True
+			elif event.key==K_RIGHT:
+				keys[1]=True
+			elif event.key==K_UP:
+				keys[2]=True
+			elif event.key==K_DOWN:
+				keys[3]=True
+			elif event.key == pyg.K_ESCAPE:
+				pyg.quit()
+				exit(0)
 
-        if event.type == pyg.KEYUP:
-            if event.key==pyg.K_LEFT:
-                keys[0]=False
-            elif event.key==pyg.K_RIGHT:
-                keys[1]=False
-            elif event.key==pyg.K_UP:
-                forward = -5
-                keys[2]=False
-            elif event.key==pyg.K_DOWN:
-                keys[3]=False
+
+		if event.type == pyg.KEYUP:
+			if event.key==pyg.K_LEFT:
+				keys[0]=False
+			elif event.key==pyg.K_RIGHT:
+				keys[1]=False
+			elif event.key==pyg.K_UP:
+				forward -= 0.1
+				keys[2]=False
+			elif event.key==pyg.K_DOWN:
+				keys[3]=False
