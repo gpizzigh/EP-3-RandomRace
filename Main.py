@@ -35,7 +35,14 @@ keys=[False,False,False,False]
 direction = 0
 forward = 0
 WHITE = (255, 255, 255, 255)
+<<<<<<< HEAD
 BLACK = (255, 255, 255, 0)
+=======
+
+BLACK = (255, 255, 255, 0)
+#BLACK =()
+
+>>>>>>> 531c48b261b45ba73b110904e5a204f56ea10f69
 YEllOW = (246,255,0,255)
 LAPS=0
 smallfont = pyg.font.SysFont("comicsansms",25)
@@ -47,6 +54,10 @@ def score(score):
 
 	screen.blit(text, [0,0])
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 531c48b261b45ba73b110904e5a204f56ea10f69
 #lista de sprites:
 #all_sprites_carros = pyg.sprite.Group()#sprites de carros
 #all_sprites_extra = pyg.sprite.Group()#sprites da pista e BG
@@ -56,16 +67,31 @@ def score(score):
 #all_sprites_extra.add(bg_mask)
 
 
+
 running = True
 while running:
     pyg.display.set_caption('Random Race')
     screen.fill(0)
     # Verifica se o carro bateu na pista.
+<<<<<<< HEAD
     
 #    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
  #   print(pistax,pistay)
     if pistax >= 270: 
         pistax = pistax -5 
+=======
+<<<<<<< HEAD
+    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay)))) #(255,255,255,0)
+    if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
+        print("Colisao")
+        #pyg.quit()
+=======
+
+#    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+    print(pistax,pistay)
+    if pistax >= 270:
+        pistax = pistax -5
+>>>>>>> 531c48b261b45ba73b110904e5a204f56ea10f69
         forward = 0.01
     if pistax <= -1200:
         pistax = pistax + 5
@@ -76,10 +102,10 @@ while running:
     if pistay <= -1125:
         pistay = pistay + 5
         forward = 0.01
-    
+
     if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-        if forward >2:
-            forward = 2
+#        if forward >2:
+#            forward = 2
         if keys[2]==True:
             forward = 0
             forward = -2
@@ -87,6 +113,7 @@ while running:
             forward = 0
             forward = 2
 
+<<<<<<< HEAD
   #  print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
   #  print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
  #   if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
@@ -95,10 +122,23 @@ while running:
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
     	LAPS += 1
 
+=======
+
+#    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+#    print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
+#    if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
+#        pyg.quit()
+#        exit(0)
+    if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
+    	LAPS += 1
+>>>>>>> 8d5ff9905e60ae9da0d28c27a874e0029ebe75cd
+
+        #exit(0)
+>>>>>>> 531c48b261b45ba73b110904e5a204f56ea10f69
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
-    
+
 #     running = False
     #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == NO_COLOR:
     if keys[2]==True:
@@ -120,8 +160,14 @@ while running:
 
     screen.blit(pista, (pistax,pistay))
 
+<<<<<<< HEAD
     screen.blit(faixa,(pistax,pistay))
 
+=======
+#    screen.blit(pista_mask, (pistax,pistay))
+
+    screen.blit(faixa,(pistax,pistay))
+>>>>>>> 531c48b261b45ba73b110904e5a204f56ea10f69
     screen.blit(carro_rot, (xpos,ypos))
 
     score(LAPS)
@@ -129,7 +175,7 @@ while running:
     pyg.display.flip()
     time.sleep(0.02)
     '''if pistax >= 280 or pistax <= -1200 and pistay >= 360 or pistay <= -1130:
-        forward  
+        forward
         xpos -= 5
         ypos -= 5
         pistay += movey
@@ -163,11 +209,15 @@ while running:
             elif event.key==pyg.K_RIGHT:
                 keys[1]=False
             elif event.key==pyg.K_UP:
+<<<<<<< HEAD
                 forward = -2
 #                while g:
 #                    forward -= 1
 #                    if forward == 0:
 #                        g=False
+=======
+                forward = -5
+>>>>>>> 531c48b261b45ba73b110904e5a204f56ea10f69
                 keys[2]=False
             elif event.key==pyg.K_DOWN:
                 keys[3]=False
