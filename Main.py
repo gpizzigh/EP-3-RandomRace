@@ -50,11 +50,12 @@ while running:
     pyg.display.set_caption('Random Race')
     screen.fill(0)
     # Verifica se o carro bateu na pista.
-    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay)))) #(255,255,255,0)
     if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-        pyg.quit()
-        exit(0)
+        print("Colisao")
+        #pyg.quit()
 
+        #exit(0)
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
