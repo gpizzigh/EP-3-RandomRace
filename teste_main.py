@@ -209,7 +209,7 @@ while running:
             elif event.key==pyg.K_RIGHT:
                 keys[1]=False
             elif event.key==pyg.K_UP:
-                forward = -5
+                forward = -2
                 keys[2]=False
             elif event.key==pyg.K_DOWN:
                 keys[3]=False
