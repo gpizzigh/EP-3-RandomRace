@@ -35,7 +35,8 @@ keys=[False,False,False,False]
 direction = 0
 forward = 0
 WHITE = (255, 255, 255, 255)
-
+RED = (255,0,0)
+black =(0,0,0)
 BLACK = (255, 255, 255, 0)
 #BLACK =()
 FPS = 40
@@ -50,10 +51,10 @@ def score(score):
 
 	screen.blit(text, [0,0])
 def tempo(Tempo):
-    #text1 = smallfont.render("Tempo total: "+str(timer),True,YELLOW)
+    text1 = smallfont.render("Tempo total: "+str(timer),True,black)
     text2 = smallfont.render("Tempo da volta: "+str(Tempo),True, BLACK)
-    #screen.blit(text1,[,])
-    screen.blit(text2,[250,0])
+    screen.blit(text1,[250,0])
+    screen.blit(text2,[250,24])
 
 clock = pyg.time.Clock()
 
@@ -111,11 +112,28 @@ while running:
 #        pyg.quit()
 #        exit(0)
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
-        timer2 = pyg.time.get_ticks()/40000
-        if timer2 < 0.5:
-            LAPS +=1
-            TEMPO = timer - TEMPO
+        #timer2 = pyg.time.get_ticks()/40000
+        #if timer2 < 0.5:
+            #LAPS +=1
+            #TEMPO = timer - TEMPO
+        if LAPS == 0 and TEMPO == 0:
+            LAPS = 1
+            TEMPO = timer - timer
+            x = TEMPO
+            y = timer
 
+        elif LAPS ==1 and TEMPO>=0 and timer-y>15:
+            LAPS =2
+            TEMPO = timer
+            y = timer
+            x= TEMPO
+
+        elif LAPS >1 and TEMPO >=0 and timer-y >15:
+            LAPS += 1
+            TEMPO = timer - x
+            x = TEMPO
+            y = timer
+            
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
