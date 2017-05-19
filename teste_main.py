@@ -45,13 +45,13 @@ LAPS=0
 smallfont = pyg.font.SysFont("comicsansms",20)
 def score(score):
 
-	text = smallfont.render("Laps: "+str(score),True, YEllOW)
+	text = smallfont.render("Laps: "+str(score),True, BLACK)
 	#if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
 		#score += 1
 
 	screen.blit(text, [0,0])
 def tempo(Tempo):
-    text1 = smallfont.render("Tempo total: "+str(timer),True,black)
+    text1 = smallfont.render("Tempo total: "+str(timer),True,BLACK)
     text2 = smallfont.render("Tempo da volta: "+str(Tempo),True, BLACK)
     screen.blit(text1,[250,0])
     screen.blit(text2,[250,24])
@@ -85,6 +85,7 @@ while running:
     if pistax >= 270:
         pistax = pistax -5
         forward = 0.01
+
     if pistax <= -1200:
         pistax = pistax + 5
         forward = 0.01
@@ -131,7 +132,7 @@ while running:
 
         elif LAPS >1 and TEMPO >=0 and timer-y >15:
             LAPS += 1
-            TEMPO = timer - x
+            TEMPO = timer - y
             x = TEMPO
             y = timer
 
@@ -145,7 +146,7 @@ while running:
     #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == NO_COLOR:
     if keys[2]==True:
         forward-= 0.08
-    if keys[3]==True and forward <= 0:
+    if keys[3]==True:
         forward+= 0.08
     if keys[0]==True:
         direction+= 2
@@ -190,6 +191,8 @@ while running:
             pyg.quit()
             exit(0)
 
+            
+
         if event.type == pyg.KEYDOWN:
             if event.key==K_LEFT:
                 keys[0]=True
@@ -199,6 +202,7 @@ while running:
                 keys[2]=True
             elif event.key==K_DOWN:
                 keys[3]=True
+           
             elif event.key == pyg.K_ESCAPE:
                 pyg.quit()
                 exit(0)
