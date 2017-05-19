@@ -35,10 +35,7 @@ keys=[False,False,False,False]
 direction = 0
 forward = 0
 WHITE = (255, 255, 255, 255)
-<<<<<<< HEAD
 BLACK = (255, 255, 255, 0)
-#BLACK =()
-=======
 YEllOW = (246,255,0,255)
 LAPS=0
 smallfont = pyg.font.SysFont("comicsansms",25)
@@ -50,8 +47,6 @@ def score(score):
 
 	screen.blit(text, [0,0])
 
-
->>>>>>> 9c13966452bb2c6313d7d229d6b527a590233ddf
 #lista de sprites:
 #all_sprites_carros = pyg.sprite.Group()#sprites de carros
 #all_sprites_extra = pyg.sprite.Group()#sprites da pista e BG
@@ -66,10 +61,9 @@ while running:
     pyg.display.set_caption('Random Race')
     screen.fill(0)
     # Verifica se o carro bateu na pista.
-<<<<<<< HEAD
     
 #    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
-    print(pistax,pistay)
+ #   print(pistax,pistay)
     if pistax >= 270: 
         pistax = pistax -5 
         forward = 0.01
@@ -93,15 +87,14 @@ while running:
             forward = 0
             forward = 2
 
-=======
-    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
-    print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
-    if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-        pyg.quit()
-        exit(0)
+  #  print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+  #  print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
+ #   if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
+  #      pyg.quit()
+   #     exit(0)
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
     	LAPS += 1
->>>>>>> 9c13966452bb2c6313d7d229d6b527a590233ddf
+
     # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
     # for carro in lista_de_colisao:
     #     print("carro bateu")
@@ -126,11 +119,9 @@ while running:
     #screen.blit(background,(0,0))
 
     screen.blit(pista, (pistax,pistay))
-<<<<<<< HEAD
-#    screen.blit(pista_mask, (pistax,pistay))
-=======
+
     screen.blit(faixa,(pistax,pistay))
->>>>>>> 9c13966452bb2c6313d7d229d6b527a590233ddf
+
     screen.blit(carro_rot, (xpos,ypos))
 
     score(LAPS)
@@ -165,7 +156,7 @@ while running:
             elif event.key == pyg.K_ESCAPE:
                 pyg.quit()
                 exit(0)
-
+        g = True
         if event.type == pyg.KEYUP:
             if event.key==pyg.K_LEFT:
                 keys[0]=False
@@ -173,6 +164,10 @@ while running:
                 keys[1]=False
             elif event.key==pyg.K_UP:
                 forward = -2
+#                while g:
+#                    forward -= 1
+#                    if forward == 0:
+#                        g=False
                 keys[2]=False
             elif event.key==pyg.K_DOWN:
                 keys[3]=False
