@@ -112,6 +112,7 @@ while running:
 #        pyg.quit()
 #        exit(0)
     if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
+
         #timer2 = pyg.time.get_ticks()/40000
         #if timer2 < 0.5:
             #LAPS +=1
@@ -133,10 +134,12 @@ while running:
             TEMPO = timer - x
             x = TEMPO
             y = timer
-            
-    # lista_de_colisao = pyg.sprite.spritecollide(all_sprites_carros,all_sprites_extra,False)
-    # for carro in lista_de_colisao:
-    #     print("carro bateu")
+
+
+
+
+    print(timer)
+
 
 #     running = False
     #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == NO_COLOR:
