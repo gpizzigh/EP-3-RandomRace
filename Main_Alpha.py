@@ -73,13 +73,12 @@ y = 0
 
 running = True
 while running:
-<<<<<<< HEAD:teste_main.py
 	pyg.display.set_caption('Random Race')
 	screen.fill(0)
 	clock.tick(FPS)
 	timer = pyg.time.get_ticks()/1000
 
- 	#Verifica se o carro bateu na pista.
+	#Verifica se o carro bateu na pista.
 
 	#print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
 	#print(pistax,pistay)
@@ -98,8 +97,7 @@ while running:
 
 	if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
         forward -= 0.1
-=======
-    pyg.display.set_caption('Random Race')
+	pyg.display.set_caption('Random Race')
     screen.fill(0)
     clock.tick(FPS)
     timer = pyg.time.get_ticks()/1000
@@ -123,10 +121,7 @@ while running:
         forward = 0.01
 
     if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-#        if forward >2:
-#            forward = 2
->>>>>>> 374d414b592c37610ae939db149d5a67adb0705b:Main_Alpha.py
-        if keys[2]==True:
+		if keys[2]==True:
             forward = 0
             forward = -2
 		if keys[3]==True:
@@ -154,9 +149,7 @@ while running:
             LAPS += 1
             TEMPO = timer - y
             x = TEMPO
-            y = timer
-
-<<<<<<< HEAD:teste_main.py
+			y = timer
 	if keys[2]==True:
 		forward-= 0.08
 	if keys[3]==True and forward <= 0:
@@ -172,10 +165,7 @@ while running:
 
 
 	carro_rot = pyg.transform.rotate(carro,direction)
-=======
-
-
-    if LAPS == 3:
+	if LAPS == 3:
     	print("finish")
     	pyg.quit()
     	exit(0)
@@ -184,24 +174,21 @@ while running:
 
 #     running = False
     #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == NO_COLOR:
-    if keys[2]==True:
+    '''if keys[2]==True:
         forward-= 0.08
     if keys[3]==True:
         forward+= 0.08
     if keys[0]==True:
         direction+= 2
     if keys[1]==True:
-        direction-= 2
+        direction-= 2'''
     movex=math.cos(direction/57.29)*forward
     movey=math.sin(direction/57.29)*forward
     pistax+=movex
     pistay-=movey
 
 
-    carro_rot = pyg.transform.rotate(carro,direction)
->>>>>>> 374d414b592c37610ae939db149d5a67adb0705b:Main_Alpha.py
-    #screen.blit(background,(0,0))
-
+	carro_rot = pyg.transform.rotate(carro,direction)
 	screen.blit(pista, (pistax,pistay))
 
 #    screen.blit(pista_mask, (pistax,pistay))
@@ -221,8 +208,7 @@ while running:
         # all_sprites_list.update()
     # checa se sai do jogo
 		if event.type==pyg.QUIT:
-            # SAida do jogo
-<<<<<<< HEAD:teste_main.py
+			# SAida do jogo
 			pyg.quit()
 			exit(0)
 
@@ -238,6 +224,9 @@ while running:
 			elif event.key == pyg.K_ESCAPE:
 				pyg.quit()
 				exit(0)
+			elif event.key == pyg.K_F10:
+				pyg.display.toggle_fullscreen()
+
 
 
 		if event.type == pyg.KEYUP:
@@ -250,12 +239,11 @@ while running:
 				keys[2]=False
 			elif event.key==pyg.K_DOWN:
 				keys[3]=False
-=======
-            pyg.quit()
+			pyg.quit()
             exit(0)
 
-            
 
+'''
         if event.type == pyg.KEYDOWN:
             if event.key==K_LEFT:
                 keys[0]=True
@@ -265,7 +253,7 @@ while running:
                 keys[2]=True
             elif event.key==K_DOWN:
                 keys[3]=True
-           
+
             elif event.key == pyg.K_ESCAPE:
                 pyg.quit()
                 exit(0)
@@ -279,5 +267,4 @@ while running:
                 forward = -2
                 keys[2]=False
             elif event.key==pyg.K_DOWN:
-                keys[3]=False
->>>>>>> 374d414b592c37610ae939db149d5a67adb0705b:Main_Alpha.py
+                keys[3]=False'''
