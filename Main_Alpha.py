@@ -3,7 +3,7 @@ from pygame.locals import *
 import time
 import math
 import os
-from classes import *
+#from classes import *
 #-------------------Class-------------------------------------------------------
 
 
@@ -20,6 +20,7 @@ screen = pyg.display.set_mode((500,500))
 pista = pyg.image.load(os.path.join(img_folder,"track final.png"))
 faixa = pyg.image.load(os.path.join(img_folder,"faixa.png"))
 carro = pyg.image.load(os.path.join(img_folder,"carro vermelho Demo.png"))#.convert_alpha()
+faixa2 = pyg.image.load(os.path.join(img_folder,"fake line.png"))
 #carro_mask = pyg.mask.from_surface((os.path.join(img_folder,"carro vermelho mask.png")))
 #carro_mask = carro_mask(15,24)
 #pista_mask = pista_mask(1383,1448.4)
@@ -34,13 +35,16 @@ ypos = 350
 keys=[False,False,False,False]
 direction = 0
 forward = 0
+#-------------------------Cores RGB---------------------------------------
 WHITE = (255, 255, 255, 255)
 RED = (255,0,0)
 black =(0,0,0)
 BLACK = (255, 255, 255, 0)
-#BLACK =()
 FPS = 120
 YEllOW = (246,255,0,255)
+AZUL = (0, 39, 255.255)
+#-----------------------------------------------------
+GP = False
 LAPS=0
 smallfont = pyg.font.SysFont("comicsansms",20)
 def score(score):
@@ -57,7 +61,11 @@ def tempo(Tempo):
     screen.blit(text2,[250,24])
 
 clock = pyg.time.Clock()
-
+def telainicial():
+    screen.fill(WHITE)
+    message_to_screen("Welcome",green,-100,"large")
+    screen.update()
+    clock.tick(15)
 dt = 0
 TEMPO = 0
 timer2 =0
@@ -73,117 +81,104 @@ y = 0
 
 running = True
 while running:
-<<<<<<< HEAD:teste_main.py
-	pyg.display.set_caption('Random Race')
-	screen.fill(0)
-	clock.tick(FPS)
-	timer = pyg.time.get_ticks()/1000
-
- 	#Verifica se o carro bateu na pista.
-
-	#print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
-	#print(pistax,pistay)
-	if pistax >= 270:
-    	pistax = pistax -5
-    	forward = 0.01
-	if pistax <= -1200:
-    	pistax = pistax + 5
-    	forward = 0.01
-	if pistay >= 350:
-    	pistay= pistay - 5
-    	forward = 0.01
-	if pistay <= -1125:
-    	pistay = pistay + 5
-    	forward = 0.01
-
-	if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
-        forward -= 0.1
-=======
     pyg.display.set_caption('Random Race')
     screen.fill(0)
     clock.tick(FPS)
     timer = pyg.time.get_ticks()/1000
 
-    # Verifica se o carro bateu na pista.
 
-#    print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+    #print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
     #print(pistax,pistay)
+
+
+    #Verifica se o carro bateu na pista.
     if pistax >= 270:
         pistax = pistax -5
         forward = 0.01
-
     if pistax <= -1200:
-        pistax = pistax + 5
-        forward = 0.01
+    	pistax = pistax + 5
+    	forward = 0.01
     if pistay >= 350:
-        pistay= pistay - 5
-        forward = 0.01
+    	pistay= pistay - 5
+    	forward = 0.01
     if pistay <= -1125:
-        pistay = pistay + 5
-        forward = 0.01
+    	pistay = pistay + 5
+    	forward = 0.01
+#----------------------------Não serve pra nada-------------------------------------------------------------
+    #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
+        #forward -= 0.1
+#--------------------------------------------------------------------------------------------------------
+
+#---------------------colisão com a grama-------------------------------
 
     if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == WHITE:
 #        if forward >2:
 #            forward = 2
->>>>>>> 374d414b592c37610ae939db149d5a67adb0705b:Main_Alpha.py
+
         if keys[2]==True:
             forward = 0
             forward = -2
-		if keys[3]==True:
+        if keys[3]==True:
             forward = 0
             forward = 2
+#--------------------------------------------------------------------
+    if faixa2.get_at((int(xpos - pistax), int(ypos - pistay))) == AZUL:
+        GP=True
+    print(GP)
 
+    #print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
+    #print(faixa2.get_at((int(xpos - pistax), int(ypos - pistay))))
+    if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW and GP==True:
 
-#print(bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))))
-#print(faixa.get_at((int(xpos - pistax), int(ypos - pistay))))
-	if faixa.get_at((int(xpos - pistax), int(ypos - pistay))) == YEllOW:
-
-		if LAPS == 0 and TEMPO == 0:
+        if LAPS == 0 and TEMPO == 0:
             LAPS = 1
             TEMPO = timer - timer
             x = TEMPO
             y = timer
+            GP = False
 
-		elif LAPS ==1 and TEMPO>=0 and timer-y>15:
+        elif LAPS ==1 and TEMPO>=0 and timer-y>15:
             LAPS =2
             TEMPO = timer
             y = timer
             x= TEMPO
+            GP = False
 
-		elif LAPS >1 and TEMPO >=0 and timer-y >15:
+        elif LAPS >1 and TEMPO >=0 and timer-y >15:
             LAPS += 1
             TEMPO = timer - y
             x = TEMPO
             y = timer
+            GP = False
 
-<<<<<<< HEAD:teste_main.py
-	if keys[2]==True:
-		forward-= 0.08
-	if keys[3]==True and forward <= 0:
-		forward+= 0.08
-	if keys[0]==True:
-		direction+= 2
-	if keys[1]==True:
-		direction-= 2
-	movex=math.cos(direction/57.29)*forward
-	movey=math.sin(direction/57.29)*forward
-	pistax+=movex
-	pistay-=movey
+#-----------------------Com este trecho + o trecho de baixo o carrinho acelera muito mais funciona com apenas um e com os dois trechos-------------------------
+    if keys[2]==True:
+    	forward-= 0.08
+    if keys[3]==True and forward <= 0:
+    	forward+= 0.08
+    if keys[0]==True:
+    	direction+= 2
+    if keys[1]==True:
+    	direction-= 2
 
+    movex=math.cos(direction/57.29)*forward
+    movey=math.sin(direction/57.29)*forward
+    pistax+=movex
+    pistay-=movey
 
-	carro_rot = pyg.transform.rotate(carro,direction)
-=======
+    #Não serve para nada pois tem um mesmo treixo a baixo
+    carro_rot = pyg.transform.rotate(carro,direction)
+#---------------------------------------------------------------------------------------------------------------------------------------------
 
-
-    if LAPS == 3:
-    	print("finish")
-    	pyg.quit()
-    	exit(0)
-    print(timer)
-
-
+    #if LAPS == 3:
+    	#print("finish")
+    	#pyg.quit()
+    	#exit(0)
+    #print(timer)
 #     running = False
     #if bg_mask.get_at((int(xpos - pistax), int(ypos - pistay))) == NO_COLOR:
+
+#--------------------Quando colocado como comentario o carrinho acelera mas fica lento, esta somando com o de cima------------------------------------------------
     if keys[2]==True:
         forward-= 0.08
     if keys[3]==True:
@@ -196,65 +191,34 @@ while running:
     movey=math.sin(direction/57.29)*forward
     pistax+=movex
     pistay-=movey
+#--------------------------------------------------------------------------------------------------------------------------------
 
-
+    #rotacionar a imagem do carrinho
     carro_rot = pyg.transform.rotate(carro,direction)
->>>>>>> 374d414b592c37610ae939db149d5a67adb0705b:Main_Alpha.py
+
+
     #screen.blit(background,(0,0))
+    #screen.blit(pista_mask, (pistax,pistay))
+    screen.blit(pista, (pistax,pistay))
+    screen.blit(faixa,(pistax,pistay))
+    screen.blit(faixa2,(pistax,pistay))
+    screen.blit(carro_rot, (xpos,ypos))
 
-	screen.blit(pista, (pistax,pistay))
-
-#    screen.blit(pista_mask, (pistax,pistay))
-
-	screen.blit(faixa,(pistax,pistay))
-	screen.blit(carro_rot, (xpos,ypos))
-
-	score(LAPS)
-	tempo(TEMPO)
-	#print(timer)
-	#print(timer2)
+    score(LAPS)
+    tempo(TEMPO)
+    #print(timer)
+    #print(timer2)
     #screen.blit(carro_mask, (xpos,ypos))
-	pyg.display.flip()
-	time.sleep(0.02)
-	for event in pyg.event.get():
+    pyg.display.flip()
+    time.sleep(0.02)
+    for event in pyg.event.get():
         #da update no grupo de sprites:
         # all_sprites_list.update()
-    # checa se sai do jogo
-		if event.type==pyg.QUIT:
+        # checa se sai do jogo
+        if event.type==pyg.QUIT:
             # SAida do jogo
-<<<<<<< HEAD:teste_main.py
-			pyg.quit()
-			exit(0)
-
-		if event.type == pyg.KEYDOWN:
-			if event.key==K_LEFT:
-				keys[0]=True
-			elif event.key==K_RIGHT:
-				keys[1]=True
-			elif event.key==K_UP:
-				keys[2]=True
-			elif event.key==K_DOWN:
-				keys[3]=True
-			elif event.key == pyg.K_ESCAPE:
-				pyg.quit()
-				exit(0)
-
-
-		if event.type == pyg.KEYUP:
-			if event.key==pyg.K_LEFT:
-				keys[0]=False
-			elif event.key==pyg.K_RIGHT:
-				keys[1]=False
-			elif event.key==pyg.K_UP:
-				forward -= 0.1
-				keys[2]=False
-			elif event.key==pyg.K_DOWN:
-				keys[3]=False
-=======
             pyg.quit()
             exit(0)
-
-            
 
         if event.type == pyg.KEYDOWN:
             if event.key==K_LEFT:
@@ -280,4 +244,4 @@ while running:
                 keys[2]=False
             elif event.key==pyg.K_DOWN:
                 keys[3]=False
->>>>>>> 374d414b592c37610ae939db149d5a67adb0705b:Main_Alpha.py
+
